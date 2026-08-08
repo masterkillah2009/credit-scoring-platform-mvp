@@ -1,0 +1,193 @@
+"""Generate the requirement traceability matrix from the source itself.
+
+The Programme Charter (section 18, documentation standards) requires
+traceability from requirement to implementation to test, and forbids closing a
+release with broken traces on must-have items. A matrix maintained by hand
+drifts from the code within a sprint, so this generates it from the code.
+
+Every requirement identifier referenced in a docstring or comment is collected
+and classified:
+
+    VERIFIED      referenced in implementation *and* named by a test
+    IMPLEMENTED   referenced in implementation only - no test names it
+    TEST ONLY     named by a test but not referenced in implementation
+
+"TEST ONLY" usually means a test asserts behaviour whose implementation does
+not cite the requirement; it is a documentation gap, not necessarily a defect.
+"IMPLEMENTED" without a test is the row that matters: code claiming to satisfy
+a requirement that nothing verifies.
+
+Run:  python3 -m tools.traceability          (writes docs/TRACEABILITY.md)
+      python3 -m tools.traceability --check  (exit 1 if untested requirements)
+"""
+from __future__ import annotations
+
+import collections
+import pathlib
+import re
+import sys
+from datetime import datetime, timezone
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+DOCS = ROOT / "docs"
+
+#: Requirement identifier families used across the documentation stack.
+PATTERN = re.compile(
+    r"\b((?:FR-[A-Z]{3}|BR-[A-Z]{3}|NFR|VAL|BRL|CST|EXC|ASM|UC|WFL|US|RPT|NTF|"
+    r"EXH|ACC|LOC|CAP|PER|JRN|KPI|DEP|RSK|MIL)-\d{2,3})\b")
+
+SOURCE_DIRECTORIES = ("core", "api", "model", "partners", "tools")
+TEST_DIRECTORY = "tests"
+
+FAMILY_NAMES = {
+    "FR": "Functional requirement (IPSRS section 9)",
+    "BR": "Business requirement (BRD)",
+    "NFR": "Non-functional requirement (IPSRS section 16)",
+    "VAL": "Input validation (IPSRS section 11)",
+    "BRL": "Business rule (IPSRS section 10)",
+    "CST": "Constraint (IPSRS section 20)",
+    "UC": "Use case (IPSRS section 6)",
+    "WFL": "Workflow (IPSRS section 12)",
+    "KPI": "Charter KPI",
+    "RSK": "Charter risk",
+    "DEP": "Charter dependency",
+}
+
+
+def _family(identifier: str) -> str:
+    prefix = identifier.split("-")[0]
+    if prefix.startswith("FR"):
+        return "FR"
+    if prefix.startswith("BR") and prefix != "BRL":
+        return "BR"
+    return prefix
+
+
+def scan() -> tuple[dict[str, set[str]], dict[str, set[str]]]:
+    implementation: dict[str, set[str]] = collections.defaultdict(set)
+    tests: dict[str, set[str]] = collections.defaultdict(set)
+
+    for directory in SOURCE_DIRECTORIES:
+        base = ROOT / directory
+        if not base.exists():
+            continue
+        for path in sorted(base.rglob("*.py")):
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            for identifier in set(PATTERN.findall(text)):
+                implementation[identifier].add(
+                    str(path.relative_to(ROOT)).replace("\\", "/"))
+
+    for path in sorted((ROOT / TEST_DIRECTORY).rglob("*.py")):
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        # Attribute each identifier to the nearest enclosing test or class, so
+        # the matrix names the test rather than merely the file.
+        current = path.stem
+        for line in text.splitlines():
+            function = re.match(r"\s*def (test_\w+)", line)
+            if function:
+                current = f"{path.stem}.{function.group(1)}"
+            klass = re.match(r"\s*class (\w+)\(", line)
+            if klass:
+                current = f"{path.stem}.{klass.group(1)}"
+            for identifier in PATTERN.findall(line):
+                tests[identifier].add(current)
+    return implementation, tests
+
+
+def build() -> dict:
+    implementation, tests = scan()
+    identifiers = sorted(set(implementation) | set(tests),
+                         key=lambda i: (_family(i), i))
+
+    rows = []
+    for identifier in identifiers:
+        in_code = sorted(implementation.get(identifier, ()))
+        in_tests = sorted(tests.get(identifier, ()))
+        if in_code and in_tests:
+            status = "VERIFIED"
+        elif in_code:
+            status = "IMPLEMENTED"
+        else:
+            status = "TEST ONLY"
+        rows.append({"id": identifier, "family": _family(identifier),
+                     "status": status, "implementation": in_code,
+                     "tests": in_tests})
+
+    counts = collections.Counter(row["status"] for row in rows)
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "rows": rows,
+        "summary": {
+            "total": len(rows),
+            "verified": counts["VERIFIED"],
+            "implemented_untested": counts["IMPLEMENTED"],
+            "test_only": counts["TEST ONLY"],
+        },
+    }
+
+
+def render(matrix: dict) -> str:
+    summary = matrix["summary"]
+    lines = [
+        "# Requirement traceability matrix",
+        "",
+        "> Generated by `python3 -m tools.traceability` - do not edit by hand.",
+        f"> Generated {matrix['generated_at']}.",
+        "",
+        "Every requirement identifier cited in a docstring or comment across the",
+        "implementation and the test suite, with where it is implemented and",
+        "which test verifies it.",
+        "",
+        "| Status | Count | Meaning |",
+        "|---|---|---|",
+        f"| VERIFIED | {summary['verified']} | Referenced in implementation and named by a test |",
+        f"| IMPLEMENTED | {summary['implemented_untested']} | Cited in code, no test names it |",
+        f"| TEST ONLY | {summary['test_only']} | Asserted by a test, not cited in code |",
+        f"| **Total** | **{summary['total']}** | |",
+        "",
+    ]
+
+    by_family: dict[str, list[dict]] = collections.defaultdict(list)
+    for row in matrix["rows"]:
+        by_family[row["family"]].append(row)
+
+    for family in sorted(by_family):
+        lines += [f"## {family} - {FAMILY_NAMES.get(family, 'Reference')}", "",
+                  "| Requirement | Status | Implementation | Verified by |",
+                  "|---|---|---|---|"]
+        for row in by_family[family]:
+            implementation = "<br>".join(f"`{path}`"
+                                         for path in row["implementation"]) or "-"
+            tests = "<br>".join(f"`{test}`" for test in row["tests"]) or "-"
+            lines.append(f"| **{row['id']}** | {row['status']} | "
+                         f"{implementation} | {tests} |")
+        lines.append("")
+
+    untested = [row["id"] for row in matrix["rows"]
+                if row["status"] == "IMPLEMENTED"]
+    if untested:
+        lines += ["## Cited in code but not named by any test", "",
+                  "These are the rows a reviewer should look at first.", "",
+                  *[f"- {identifier}" for identifier in untested], ""]
+    return "\n".join(lines)
+
+
+def main() -> None:
+    matrix = build()
+    DOCS.mkdir(exist_ok=True)
+    (DOCS / "TRACEABILITY.md").write_text(render(matrix))
+
+    summary = matrix["summary"]
+    print(f"traceability: {summary['total']} identifiers "
+          f"({summary['verified']} verified, "
+          f"{summary['implemented_untested']} implemented but untested, "
+          f"{summary['test_only']} test-only)")
+    print(f"written: docs/TRACEABILITY.md")
+
+    if "--check" in sys.argv and summary["implemented_untested"]:
+        print("FAIL: requirements cited in code without a test naming them")
+        raise SystemExit(1)
+
+
+if __name__ == "__main__":
+    main()

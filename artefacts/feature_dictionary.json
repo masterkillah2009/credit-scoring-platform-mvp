@@ -1,0 +1,288 @@
+[
+  {
+    "name": "age_years",
+    "business_definition": "Applicant age in whole years at application date",
+    "source_system": "application",
+    "owner": "credit_risk",
+    "formula": "floor((application_date - date_of_birth) / 365.25)",
+    "observation_window": "point-in-time",
+    "data_type": "numeric",
+    "min_value": 18,
+    "max_value": 100,
+    "missing_treatment": "block",
+    "permitted_purpose": "credit_risk_and_eligibility",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "7y_after_closure",
+    "sensitive": false
+  },
+  {
+    "name": "employment_months",
+    "business_definition": "Months of continuous service with current employer",
+    "source_system": "payroll_or_application",
+    "owner": "credit_risk",
+    "formula": "months_between(application_date, employment_start_date)",
+    "observation_window": "point-in-time",
+    "data_type": "numeric",
+    "min_value": 0,
+    "max_value": 600,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "7y_after_closure",
+    "sensitive": false
+  },
+  {
+    "name": "existing_dsr",
+    "business_definition": "Existing monthly debt service divided by verified monthly net income",
+    "source_system": "bureau_and_payroll",
+    "owner": "credit_risk",
+    "formula": "existing_monthly_debt_service / verified_monthly_income",
+    "observation_window": "current",
+    "data_type": "numeric",
+    "min_value": 0,
+    "max_value": 3,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "7y_after_closure",
+    "sensitive": false
+  },
+  {
+    "name": "requested_to_income",
+    "business_definition": "Requested principal divided by monthly net income",
+    "source_system": "application",
+    "owner": "credit_risk",
+    "formula": "requested_amount / verified_monthly_income",
+    "observation_window": "point-in-time",
+    "data_type": "numeric",
+    "min_value": 0,
+    "max_value": 60,
+    "missing_treatment": "block",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "7y_after_closure",
+    "sensitive": false
+  },
+  {
+    "name": "bureau_worst_dpd",
+    "business_definition": "Worst days-past-due status recorded on any bureau facility in the last 12 months",
+    "source_system": "credit_bureau",
+    "owner": "credit_risk",
+    "formula": "max(days_past_due) over bureau facilities, 12m window",
+    "observation_window": "12 months",
+    "data_type": "numeric",
+    "min_value": 0,
+    "max_value": 999,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "per_bureau_terms",
+    "sensitive": false
+  },
+  {
+    "name": "bureau_open_facilities",
+    "business_definition": "Count of open credit facilities at the bureau",
+    "source_system": "credit_bureau",
+    "owner": "credit_risk",
+    "formula": "count(facilities where status = OPEN)",
+    "observation_window": "current",
+    "data_type": "numeric",
+    "min_value": 0,
+    "max_value": 50,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "per_bureau_terms",
+    "sensitive": false
+  },
+  {
+    "name": "bureau_enquiries_6m",
+    "business_definition": "Credit enquiries recorded in the last 6 months",
+    "source_system": "credit_bureau",
+    "owner": "credit_risk",
+    "formula": "count(enquiries in trailing 6 months)",
+    "observation_window": "6 months",
+    "data_type": "numeric",
+    "min_value": 0,
+    "max_value": 50,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "per_bureau_terms",
+    "sensitive": false
+  },
+  {
+    "name": "credit_history_months",
+    "business_definition": "Months since the oldest bureau facility opened",
+    "source_system": "credit_bureau",
+    "owner": "credit_risk",
+    "formula": "months_between(application_date, min(facility_open_date))",
+    "observation_window": "lifetime",
+    "data_type": "numeric",
+    "min_value": 0,
+    "max_value": 600,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "per_bureau_terms",
+    "sensitive": false
+  },
+  {
+    "name": "revolving_utilisation",
+    "business_definition": "Revolving balances divided by revolving limits across bureau facilities",
+    "source_system": "credit_bureau",
+    "owner": "credit_risk",
+    "formula": "sum(revolving_balance) / sum(revolving_limit)",
+    "observation_window": "current",
+    "data_type": "numeric",
+    "min_value": 0,
+    "max_value": 2,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "per_bureau_terms",
+    "sensitive": false
+  },
+  {
+    "name": "prior_default",
+    "business_definition": "Whether any default, write-off or restructure is recorded on the bureau file",
+    "source_system": "credit_bureau",
+    "owner": "credit_risk",
+    "formula": "any(facility.status in {DEFAULT, WRITTEN_OFF, RESTRUCTURED})",
+    "observation_window": "lifetime",
+    "data_type": "boolean",
+    "min_value": null,
+    "max_value": null,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "per_bureau_terms",
+    "sensitive": false
+  },
+  {
+    "name": "no_bureau_record",
+    "business_definition": "Whether the applicant has no retrievable credit bureau record (thin or no file)",
+    "source_system": "derived",
+    "owner": "credit_risk",
+    "formula": "not any(bureau field retrieved)",
+    "observation_window": "point-in-time",
+    "data_type": "boolean",
+    "min_value": null,
+    "max_value": null,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "7y_after_closure",
+    "sensitive": false
+  },
+  {
+    "name": "relationship_months",
+    "business_definition": "Months since the customer's first product with the lender",
+    "source_system": "core_banking",
+    "owner": "credit_risk",
+    "formula": "months_between(application_date, first_relationship_date)",
+    "observation_window": "lifetime",
+    "data_type": "numeric",
+    "min_value": 0,
+    "max_value": 600,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "credit_risk",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "APPLICATION_LR_V1"
+    ],
+    "retention": "7y_after_closure",
+    "sensitive": false
+  },
+  {
+    "name": "gender",
+    "business_definition": "Applicant gender as recorded for regulatory reporting",
+    "source_system": "application",
+    "owner": "compliance",
+    "formula": "application.gender",
+    "observation_window": "point-in-time",
+    "data_type": "boolean",
+    "min_value": null,
+    "max_value": null,
+    "missing_treatment": "dedicated_bin",
+    "permitted_purpose": "fairness_testing_and_regulatory_reporting_only",
+    "jurisdictions": [
+      "ZM"
+    ],
+    "refresh": "per_application",
+    "used_by_models": [
+      "NONE"
+    ],
+    "retention": "7y_after_closure",
+    "sensitive": true
+  }
+]

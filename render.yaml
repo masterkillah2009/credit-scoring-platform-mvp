@@ -1,0 +1,73 @@
+# Render blueprint for the demonstration deployment.
+#
+# Push this repository to GitHub, then in Render choose
+# New -> Blueprint and select the repository. Render reads this file and
+# provisions the service; there is nothing to configure by hand.
+#
+# What this deploys is the reference build in this repository - the same code
+# the test suite covers. Verify it after deployment with:
+#
+#     python3 -m tools.conformance https://<your-service>.onrender.com
+#     python3 -m tools.conformance https://<your-service>.onrender.com risk demo-risk-2026
+#
+# Both must report zero failures. If they do not, what is running is not this
+# code.
+
+services:
+  - type: web
+    name: scoring-platform-demo
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    region: frankfurt          # closest of Render's regions to Zambia
+    healthCheckPath: /healthz
+    autoDeploy: true
+
+    envVars:
+      # Signs the stateless session tokens. Render generates a strong random
+      # value and keeps it out of the repository. Changing it invalidates
+      # every existing session, which is the correct behaviour.
+      - key: DEMO_SECRET_KEY
+        generateValue: true
+
+      # The ledger. On the free plan this lives in the container's own
+      # filesystem: it is lost when the instance sleeps, and the entrypoint
+      # re-seeds on the next start. That is acceptable - and arguably right -
+      # for a demonstration, because every viewing begins from the same known
+      # state. To keep history across restarts, move to a paid plan and
+      # uncomment the `disk:` block below.
+      - key: DEMO_LEDGER
+        value: /data/ledger.db
+
+      - key: DEMO_BIND
+        value: 0.0.0.0
+
+      # Displayed in the console header and returned by /v1/demo/info. Do not
+      # remove it. The build also carries a static notice in the page itself,
+      # so the disclaimer survives a misconfiguration.
+      - key: DEMO_BANNER
+        value: DEMONSTRATION - synthetic data, prototype model, not approved for production use
+
+      - key: DEMO_ENVIRONMENT
+        value: demonstration
+
+      # Session lifetime in seconds (8 hours).
+      - key: DEMO_SESSION_TTL
+        value: "28800"
+
+      # Leave unset to use the built-in demonstration accounts, which are
+      # listed on the sign-in screen and are meant to be public. Set it to a
+      # JSON list of accounts if you would rather issue named logins to a
+      # specific prospect - see DEPLOY.md section 3.1 for the format.
+      #
+      # - key: DEMO_USERS
+      #   sync: false
+
+    # Persistent ledger. Requires a paid instance type; Render rejects a disk
+    # on the free plan. Uncomment together with changing `plan:` above.
+    #
+    # disk:
+    #   name: ledger
+    #   mountPath: /data
+    #   sizeGB: 1

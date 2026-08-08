@@ -1,0 +1,8 @@
+tests/
+chk*/
+*.md
+!docs/*.md
+__pycache__/
+*.pyc
+ledger.db
+.git/

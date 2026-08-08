@@ -1,0 +1,228 @@
+{
+  "model_id": "APPLICATION_LR_V1",
+  "model_version": "2.0.0",
+  "model_type": "segmented_logistic_regression_woe_scorecard",
+  "trained_at": "2026-08-08T14:43:31+00:00",
+  "segmentation": {
+    "rule": "THIN if no credit-bureau record retrieved, else BUREAU",
+    "rationale": "separate information sets; avoids counting the information-absent effect once per bureau characteristic, which caused collinearity and sign reversals in the single-model design",
+    "segments": [
+      "BUREAU",
+      "THIN"
+    ]
+  },
+  "training_data": {
+    "source": "SYNTHETIC - prototype only, not a real development sample",
+    "generator": "model.synth.generate",
+    "seed": 20260719,
+    "n_total": 12000,
+    "n_development": 7200,
+    "n_validation": 2400,
+    "n_out_of_time": 2400,
+    "thin_file_share": 0.232417,
+    "default_definition": "90+ days past due within a 12-month performance window (synthetic proxy)"
+  },
+  "segments": {
+    "BUREAU": {
+      "characteristics": [
+        "age_years",
+        "employment_months",
+        "existing_dsr",
+        "requested_to_income",
+        "bureau_worst_dpd",
+        "credit_history_months",
+        "revolving_utilisation",
+        "prior_default"
+      ],
+      "information_values": {
+        "age_years": 0.070691,
+        "employment_months": 0.060441,
+        "existing_dsr": 0.031886,
+        "requested_to_income": 0.029821,
+        "bureau_worst_dpd": 0.217379,
+        "credit_history_months": 0.033037,
+        "revolving_utilisation": 0.050056,
+        "prior_default": 0.147871
+      },
+      "coefficients": {
+        "age_years": -1.038795,
+        "employment_months": -1.100999,
+        "existing_dsr": -1.026935,
+        "requested_to_income": -1.081676,
+        "bureau_worst_dpd": -0.9705,
+        "credit_history_months": -1.095058,
+        "revolving_utilisation": -1.107958,
+        "prior_default": -0.89835
+      },
+      "vif": {
+        "age_years": 1.001,
+        "employment_months": 1.001,
+        "existing_dsr": 1.001,
+        "requested_to_income": 1.001,
+        "bureau_worst_dpd": 1.017,
+        "credit_history_months": 1.001,
+        "revolving_utilisation": 1.001,
+        "prior_default": 1.016
+      },
+      "n_development": 5510,
+      "development_bad_rate": 0.16098
+    },
+    "THIN": {
+      "characteristics": [
+        "age_years",
+        "employment_months",
+        "existing_dsr",
+        "requested_to_income",
+        "relationship_months"
+      ],
+      "information_values": {
+        "age_years": 0.022725,
+        "employment_months": 0.037828,
+        "existing_dsr": 0.041802,
+        "requested_to_income": 0.039555,
+        "relationship_months": 0.021296
+      },
+      "coefficients": {
+        "age_years": -1.033523,
+        "employment_months": -1.120787,
+        "existing_dsr": -1.027784,
+        "requested_to_income": -0.983611,
+        "relationship_months": -1.038135
+      },
+      "vif": {
+        "age_years": 1.002,
+        "employment_months": 1.003,
+        "existing_dsr": 1.002,
+        "requested_to_income": 1.001,
+        "relationship_months": 1.003
+      },
+      "n_development": 1690,
+      "development_bad_rate": 0.266272
+    }
+  },
+  "performance": {
+    "development": {
+      "n": 7200,
+      "bad_rate": 0.185694,
+      "auc": 0.707937,
+      "gini": 0.415873,
+      "ks": 0.317376,
+      "brier": 0.138076,
+      "calibration": {
+        "intercept": 3.6e-05,
+        "slope": 1.000027
+      }
+    },
+    "development_bureau": {
+      "n": 5510,
+      "bad_rate": 0.16098,
+      "auc": 0.714396,
+      "gini": 0.428791,
+      "ks": 0.329568,
+      "brier": 0.122398,
+      "calibration": {
+        "intercept": 3.1e-05,
+        "slope": 1.000021
+      }
+    },
+    "development_thin": {
+      "n": 1690,
+      "bad_rate": 0.266272,
+      "auc": 0.616428,
+      "gini": 0.232857,
+      "ks": 0.179785,
+      "brier": 0.189194,
+      "calibration": {
+        "intercept": 0.000101,
+        "slope": 1.000103
+      }
+    },
+    "validation": {
+      "n": 2400,
+      "bad_rate": 0.181667,
+      "auc": 0.712359,
+      "gini": 0.424718,
+      "ks": 0.320139,
+      "brier": 0.13329,
+      "calibration": {
+        "intercept": 0.067426,
+        "slope": 1.078267
+      }
+    },
+    "validation_bureau": {
+      "n": 1833,
+      "bad_rate": 0.153846,
+      "auc": 0.710873,
+      "gini": 0.421746,
+      "ks": 0.317537,
+      "brier": 0.115031,
+      "calibration": {
+        "intercept": 0.091623,
+        "slope": 1.09788
+      }
+    },
+    "validation_thin": {
+      "n": 567,
+      "bad_rate": 0.271605,
+      "auc": 0.61561,
+      "gini": 0.231219,
+      "ks": 0.2046,
+      "brier": 0.192319,
+      "calibration": {
+        "intercept": -0.071667,
+        "slope": 0.922341
+      }
+    },
+    "out_of_time": {
+      "n": 2400,
+      "bad_rate": 0.1725,
+      "auc": 0.693771,
+      "gini": 0.387543,
+      "ks": 0.301881,
+      "brier": 0.131251,
+      "calibration": {
+        "intercept": -0.085478,
+        "slope": 0.973794
+      }
+    },
+    "out_of_time_bureau": {
+      "n": 1868,
+      "bad_rate": 0.156852,
+      "auc": 0.706584,
+      "gini": 0.413169,
+      "ks": 0.326798,
+      "brier": 0.118604,
+      "calibration": {
+        "intercept": 0.112607,
+        "slope": 1.062044
+      }
+    },
+    "out_of_time_thin": {
+      "n": 532,
+      "bad_rate": 0.227444,
+      "auc": 0.59473,
+      "gini": 0.189459,
+      "ks": 0.215902,
+      "brier": 0.175658,
+      "calibration": {
+        "intercept": -0.464875,
+        "slope": 0.73785
+      }
+    }
+  },
+  "warnings": [
+    "BUREAU/bureau_enquiries_6m: dropped, IV 0.0184 below 0.02",
+    "BUREAU/relationship_months: dropped, IV 0.0080 below 0.02"
+  ],
+  "governance": {
+    "status": "PROTOTYPE - NOT APPROVED FOR PRODUCTION",
+    "independent_validation": "not performed",
+    "approval_reference": null,
+    "limitations": [
+      "Trained on synthetic data; no inference about real borrowers.",
+      "No reject inference performed.",
+      "No fairness testing performed (no protected attributes in the synthetic sample).",
+      "Cut-offs are calibrated separately: see model.calibrate_cutoffs."
+    ]
+  }
+}

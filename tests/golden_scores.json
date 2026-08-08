@@ -1,0 +1,13 @@
+{
+  "artefact_sha256": "cb63da6db1387b3dfeed207dfa7941188054577868967ad4b80d779acc360890",
+  "scores": {
+    "clean": {
+      "ZAM-MFI": 526,
+      "ZAM-PAY": 661
+    },
+    "thin_file": {
+      "ZAM-MFI": 474,
+      "ZAM-PAY": 635
+    }
+  }
+}

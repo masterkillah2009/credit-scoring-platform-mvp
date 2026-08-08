@@ -1,0 +1,40 @@
+# Single-command demonstration deployment.
+#
+#   docker compose up -d --build
+#   open http://localhost:8080
+#
+# For anything on the public internet, set DEMO_SECRET_KEY and DEMO_USERS,
+# and put a TLS-terminating reverse proxy in front (see DEPLOY.md).
+
+services:
+  platform:
+    build: .
+    image: scoring-platform-demo:latest
+    restart: unless-stopped
+    ports:
+      - "${DEMO_PUBLIC_PORT:-8080}:8080"
+    environment:
+      # Session signing key. Generate with: openssl rand -hex 32
+      DEMO_SECRET_KEY: "${DEMO_SECRET_KEY:-}"
+      # JSON list of accounts. Leave unset to use the demonstration accounts.
+      DEMO_USERS: "${DEMO_USERS:-}"
+      DEMO_SESSION_TTL: "${DEMO_SESSION_TTL:-28800}"
+      DEMO_BANNER: "${DEMO_BANNER:-DEMONSTRATION - synthetic data, prototype model, not approved for production use}"
+      DEMO_ENVIRONMENT: "${DEMO_ENVIRONMENT:-demonstration}"
+      DEMO_LEDGER: /data/ledger.db
+      DEMO_BIND: 0.0.0.0
+      PORT: 8080
+    volumes:
+      - ledger:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=3).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+volumes:
+  ledger:

@@ -1,0 +1,1041 @@
+{
+  "generated_at": "2026-08-08T14:43:38+00:00",
+  "model_id": "APPLICATION_LR_V1",
+  "model_version": "2.0.0",
+  "artefact_sha256": "54fec8ee0921e9256dc3631a94006429607a20f38ee2223c4d494087de837bd7",
+  "sample": {
+    "basis": "validation + out-of-time (development sample excluded)",
+    "n": 4800,
+    "source": "SYNTHETIC - prototype only"
+  },
+  "tenants": {
+    "ZAM-PAY": {
+      "product": "PAYROLL_LOAN",
+      "target_bad_rate": 0.08,
+      "score_distribution": {
+        "min": 539,
+        "max": 699,
+        "p10": 601,
+        "median": 630,
+        "p90": 660
+      },
+      "bad_rate_by_band": [
+        {
+          "score_from": 539,
+          "score_to": 600,
+          "population": 440,
+          "population_share": 0.0917,
+          "bad_rate": 0.4205
+        },
+        {
+          "score_from": 601,
+          "score_to": 610,
+          "population": 497,
+          "population_share": 0.1035,
+          "bad_rate": 0.3159
+        },
+        {
+          "score_from": 611,
+          "score_to": 617,
+          "population": 467,
+          "population_share": 0.0973,
+          "bad_rate": 0.2141
+        },
+        {
+          "score_from": 618,
+          "score_to": 623,
+          "population": 493,
+          "population_share": 0.1027,
+          "bad_rate": 0.1805
+        },
+        {
+          "score_from": 624,
+          "score_to": 629,
+          "population": 446,
+          "population_share": 0.0929,
+          "bad_rate": 0.2108
+        },
+        {
+          "score_from": 630,
+          "score_to": 636,
+          "population": 525,
+          "population_share": 0.1094,
+          "bad_rate": 0.1295
+        },
+        {
+          "score_from": 637,
+          "score_to": 642,
+          "population": 454,
+          "population_share": 0.0946,
+          "bad_rate": 0.0969
+        },
+        {
+          "score_from": 643,
+          "score_to": 649,
+          "population": 463,
+          "population_share": 0.0965,
+          "bad_rate": 0.0972
+        },
+        {
+          "score_from": 650,
+          "score_to": 659,
+          "population": 524,
+          "population_share": 0.1092,
+          "bad_rate": 0.0897
+        },
+        {
+          "score_from": 660,
+          "score_to": 698,
+          "population": 490,
+          "population_share": 0.1021,
+          "bad_rate": 0.0429
+        },
+        {
+          "score_from": 699,
+          "score_to": 699,
+          "population": 1,
+          "population_share": 0.0002,
+          "bad_rate": 0.0
+        }
+      ],
+      "cutoff_curve": [
+        {
+          "cutoff": 539,
+          "approval_rate": 1.0,
+          "bad_rate_approved": 0.1771,
+          "bad_rate_declined": null,
+          "bad_rate_marginal": 1.0,
+          "marginal_population": 9
+        },
+        {
+          "cutoff": 544,
+          "approval_rate": 0.9998,
+          "bad_rate_approved": 0.1769,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 0.9231,
+          "marginal_population": 13
+        },
+        {
+          "cutoff": 549,
+          "approval_rate": 0.999,
+          "bad_rate_approved": 0.1762,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 0.8,
+          "marginal_population": 15
+        },
+        {
+          "cutoff": 554,
+          "approval_rate": 0.9988,
+          "bad_rate_approved": 0.1761,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 0.8333,
+          "marginal_population": 30
+        },
+        {
+          "cutoff": 559,
+          "approval_rate": 0.9981,
+          "bad_rate_approved": 0.1755,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 0.7955,
+          "marginal_population": 44
+        },
+        {
+          "cutoff": 564,
+          "approval_rate": 0.9971,
+          "bad_rate_approved": 0.1749,
+          "bad_rate_declined": 0.9286,
+          "bad_rate_marginal": 0.7162,
+          "marginal_population": 74
+        },
+        {
+          "cutoff": 569,
+          "approval_rate": 0.9958,
+          "bad_rate_approved": 0.1743,
+          "bad_rate_declined": 0.85,
+          "bad_rate_marginal": 0.5948,
+          "marginal_population": 116
+        },
+        {
+          "cutoff": 574,
+          "approval_rate": 0.9925,
+          "bad_rate_approved": 0.1719,
+          "bad_rate_declined": 0.8611,
+          "bad_rate_marginal": 0.4432,
+          "marginal_population": 176
+        },
+        {
+          "cutoff": 579,
+          "approval_rate": 0.989,
+          "bad_rate_approved": 0.1698,
+          "bad_rate_declined": 0.8302,
+          "bad_rate_marginal": 0.3882,
+          "marginal_population": 322
+        },
+        {
+          "cutoff": 584,
+          "approval_rate": 0.9817,
+          "bad_rate_approved": 0.1664,
+          "bad_rate_declined": 0.75,
+          "bad_rate_marginal": 0.3394,
+          "marginal_population": 492
+        },
+        {
+          "cutoff": 589,
+          "approval_rate": 0.9717,
+          "bad_rate_approved": 0.1638,
+          "bad_rate_declined": 0.6324,
+          "bad_rate_marginal": 0.3251,
+          "marginal_population": 692
+        },
+        {
+          "cutoff": 594,
+          "approval_rate": 0.9558,
+          "bad_rate_approved": 0.1615,
+          "bad_rate_declined": 0.5142,
+          "bad_rate_marginal": 0.3018,
+          "marginal_population": 941
+        },
+        {
+          "cutoff": 599,
+          "approval_rate": 0.9219,
+          "bad_rate_approved": 0.1539,
+          "bad_rate_declined": 0.4507,
+          "bad_rate_marginal": 0.2604,
+          "marginal_population": 1110
+        },
+        {
+          "cutoff": 604,
+          "approval_rate": 0.8792,
+          "bad_rate_approved": 0.1462,
+          "bad_rate_declined": 0.4017,
+          "bad_rate_marginal": 0.2263,
+          "marginal_population": 1317
+        },
+        {
+          "cutoff": 609,
+          "approval_rate": 0.8275,
+          "bad_rate_approved": 0.1357,
+          "bad_rate_declined": 0.3756,
+          "bad_rate_marginal": 0.2065,
+          "marginal_population": 1443
+        },
+        {
+          "cutoff": 614,
+          "approval_rate": 0.7598,
+          "bad_rate_approved": 0.1253,
+          "bad_rate_declined": 0.3408,
+          "bad_rate_marginal": 0.1846,
+          "marginal_population": 1495
+        },
+        {
+          "cutoff": 619,
+          "approval_rate": 0.6906,
+          "bad_rate_approved": 0.1183,
+          "bad_rate_declined": 0.3084,
+          "bad_rate_marginal": 0.1627,
+          "marginal_population": 1537
+        },
+        {
+          "cutoff": 624,
+          "approval_rate": 0.6048,
+          "bad_rate_approved": 0.1099,
+          "bad_rate_declined": 0.2799,
+          "bad_rate_marginal": 0.1426,
+          "marginal_population": 1494
+        },
+        {
+          "cutoff": 629,
+          "approval_rate": 0.5269,
+          "bad_rate_approved": 0.0953,
+          "bad_rate_declined": 0.2682,
+          "bad_rate_marginal": 0.1178,
+          "marginal_population": 1451
+        },
+        {
+          "cutoff": 634,
+          "approval_rate": 0.4483,
+          "bad_rate_approved": 0.0841,
+          "bad_rate_declined": 0.2526,
+          "bad_rate_marginal": 0.0962,
+          "marginal_population": 1372
+        },
+        {
+          "cutoff": 639,
+          "approval_rate": 0.3704,
+          "bad_rate_approved": 0.0799,
+          "bad_rate_declined": 0.2343,
+          "bad_rate_marginal": 0.0919,
+          "marginal_population": 1252
+        },
+        {
+          "cutoff": 644,
+          "approval_rate": 0.2935,
+          "bad_rate_approved": 0.0752,
+          "bad_rate_declined": 0.2194,
+          "bad_rate_marginal": 0.0813,
+          "marginal_population": 1058
+        },
+        {
+          "cutoff": 649,
+          "approval_rate": 0.2246,
+          "bad_rate_approved": 0.0649,
+          "bad_rate_declined": 0.2096,
+          "bad_rate_marginal": 0.0713,
+          "marginal_population": 870
+        },
+        {
+          "cutoff": 654,
+          "approval_rate": 0.1625,
+          "bad_rate_approved": 0.0628,
+          "bad_rate_declined": 0.1993,
+          "bad_rate_marginal": 0.0702,
+          "marginal_population": 655
+        },
+        {
+          "cutoff": 659,
+          "approval_rate": 0.1096,
+          "bad_rate_approved": 0.0513,
+          "bad_rate_declined": 0.1926,
+          "bad_rate_marginal": 0.0523,
+          "marginal_population": 459
+        },
+        {
+          "cutoff": 664,
+          "approval_rate": 0.0731,
+          "bad_rate_approved": 0.057,
+          "bad_rate_declined": 0.1866,
+          "bad_rate_marginal": 0.0605,
+          "marginal_population": 314
+        },
+        {
+          "cutoff": 669,
+          "approval_rate": 0.0433,
+          "bad_rate_approved": 0.0385,
+          "bad_rate_declined": 0.1834,
+          "bad_rate_marginal": 0.0376,
+          "marginal_population": 186
+        },
+        {
+          "cutoff": 674,
+          "approval_rate": 0.026,
+          "bad_rate_approved": 0.024,
+          "bad_rate_declined": 0.1812,
+          "bad_rate_marginal": 0.0246,
+          "marginal_population": 122
+        },
+        {
+          "cutoff": 679,
+          "approval_rate": 0.014,
+          "bad_rate_approved": 0.0448,
+          "bad_rate_declined": 0.179,
+          "bad_rate_marginal": 0.0455,
+          "marginal_population": 66
+        },
+        {
+          "cutoff": 684,
+          "approval_rate": 0.0077,
+          "bad_rate_approved": 0.027,
+          "bad_rate_declined": 0.1782,
+          "bad_rate_marginal": 0.027,
+          "marginal_population": 37
+        },
+        {
+          "cutoff": 689,
+          "approval_rate": 0.0046,
+          "bad_rate_approved": 0.0455,
+          "bad_rate_declined": 0.1777,
+          "bad_rate_marginal": 0.0455,
+          "marginal_population": 22
+        },
+        {
+          "cutoff": 694,
+          "approval_rate": 0.0006,
+          "bad_rate_approved": 0.0,
+          "bad_rate_declined": 0.1772,
+          "bad_rate_marginal": 0.0,
+          "marginal_population": 3
+        },
+        {
+          "cutoff": 699,
+          "approval_rate": 0.0002,
+          "bad_rate_approved": 0.0,
+          "bad_rate_declined": 0.1771,
+          "bad_rate_marginal": 0.0,
+          "marginal_population": 1
+        }
+      ],
+      "recommended": {
+        "accept_cutoff": 649,
+        "refer_floor": 619,
+        "approval_rate": 0.2246,
+        "bad_rate_approved": 0.0649,
+        "bad_rate_marginal": 0.0713,
+        "basis": "lowest cut-off with BOTH approved and marginal bad rate <= 8%; referral band = 1.5 x PDO (30 points)"
+      },
+      "configured": {
+        "accept_cutoff": 649,
+        "refer_floor": 619,
+        "approval_rate": 0.2246,
+        "bad_rate_approved": 0.0649
+      },
+      "swap_set": {
+        "current_cutoff": 649,
+        "proposed_cutoff": 649,
+        "direction": "unchanged",
+        "applicants_affected": 0,
+        "share_of_population": 0.0,
+        "bad_rate_of_swap_set": null,
+        "approval_rate_current": 0.2246,
+        "approval_rate_proposed": 0.2246
+      },
+      "thin_file_note": {
+        "share_of_population": 0.229,
+        "bad_rate": 0.2502,
+        "segment_gini_out_of_time": 0.189459,
+        "policy_implication": "Thin-file discrimination is materially weaker than the bureau segment, so thin-file applicants should refer to manual underwriting rather than be auto-decided on score alone (policy rule R-THN-01)."
+      }
+    },
+    "ZAM-MFI": {
+      "product": "MICRO_LOAN",
+      "target_bad_rate": 0.18,
+      "score_distribution": {
+        "min": 282,
+        "max": 602,
+        "p10": 406,
+        "median": 464,
+        "p90": 523
+      },
+      "bad_rate_by_band": [
+        {
+          "score_from": 282,
+          "score_to": 405,
+          "population": 462,
+          "population_share": 0.0963,
+          "bad_rate": 0.4156
+        },
+        {
+          "score_from": 406,
+          "score_to": 424,
+          "population": 480,
+          "population_share": 0.1,
+          "bad_rate": 0.3146
+        },
+        {
+          "score_from": 425,
+          "score_to": 439,
+          "population": 497,
+          "population_share": 0.1035,
+          "bad_rate": 0.2093
+        },
+        {
+          "score_from": 440,
+          "score_to": 450,
+          "population": 464,
+          "population_share": 0.0967,
+          "bad_rate": 0.1832
+        },
+        {
+          "score_from": 451,
+          "score_to": 463,
+          "population": 491,
+          "population_share": 0.1023,
+          "bad_rate": 0.1955
+        },
+        {
+          "score_from": 464,
+          "score_to": 476,
+          "population": 474,
+          "population_share": 0.0988,
+          "bad_rate": 0.1371
+        },
+        {
+          "score_from": 477,
+          "score_to": 489,
+          "population": 488,
+          "population_share": 0.1017,
+          "bad_rate": 0.0984
+        },
+        {
+          "score_from": 490,
+          "score_to": 503,
+          "population": 461,
+          "population_share": 0.096,
+          "bad_rate": 0.0933
+        },
+        {
+          "score_from": 504,
+          "score_to": 522,
+          "population": 494,
+          "population_share": 0.1029,
+          "bad_rate": 0.0911
+        },
+        {
+          "score_from": 523,
+          "score_to": 601,
+          "population": 488,
+          "population_share": 0.1017,
+          "bad_rate": 0.043
+        },
+        {
+          "score_from": 602,
+          "score_to": 602,
+          "population": 1,
+          "population_share": 0.0002,
+          "bad_rate": 0.0
+        }
+      ],
+      "cutoff_curve": [
+        {
+          "cutoff": 282,
+          "approval_rate": 1.0,
+          "bad_rate_approved": 0.1771,
+          "bad_rate_declined": null,
+          "bad_rate_marginal": 1.0,
+          "marginal_population": 5
+        },
+        {
+          "cutoff": 287,
+          "approval_rate": 0.9998,
+          "bad_rate_approved": 0.1769,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 1.0,
+          "marginal_population": 4
+        },
+        {
+          "cutoff": 292,
+          "approval_rate": 0.9998,
+          "bad_rate_approved": 0.1769,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 1.0,
+          "marginal_population": 5
+        },
+        {
+          "cutoff": 297,
+          "approval_rate": 0.9992,
+          "bad_rate_approved": 0.1764,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 1.0,
+          "marginal_population": 5
+        },
+        {
+          "cutoff": 302,
+          "approval_rate": 0.999,
+          "bad_rate_approved": 0.1762,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 1.0,
+          "marginal_population": 6
+        },
+        {
+          "cutoff": 307,
+          "approval_rate": 0.999,
+          "bad_rate_approved": 0.1762,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 0.875,
+          "marginal_population": 8
+        },
+        {
+          "cutoff": 312,
+          "approval_rate": 0.9988,
+          "bad_rate_approved": 0.1761,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 0.875,
+          "marginal_population": 8
+        },
+        {
+          "cutoff": 317,
+          "approval_rate": 0.9981,
+          "bad_rate_approved": 0.1755,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 0.6667,
+          "marginal_population": 9
+        },
+        {
+          "cutoff": 322,
+          "approval_rate": 0.9977,
+          "bad_rate_approved": 0.1752,
+          "bad_rate_declined": 1.0,
+          "bad_rate_marginal": 0.75,
+          "marginal_population": 12
+        },
+        {
+          "cutoff": 327,
+          "approval_rate": 0.9973,
+          "bad_rate_approved": 0.1751,
+          "bad_rate_declined": 0.9231,
+          "bad_rate_marginal": 0.8235,
+          "marginal_population": 17
+        },
+        {
+          "cutoff": 332,
+          "approval_rate": 0.9971,
+          "bad_rate_approved": 0.1749,
+          "bad_rate_declined": 0.9286,
+          "bad_rate_marginal": 0.8333,
+          "marginal_population": 24
+        },
+        {
+          "cutoff": 337,
+          "approval_rate": 0.9962,
+          "bad_rate_approved": 0.1746,
+          "bad_rate_declined": 0.8333,
+          "bad_rate_marginal": 0.8621,
+          "marginal_population": 29
+        },
+        {
+          "cutoff": 342,
+          "approval_rate": 0.9952,
+          "bad_rate_approved": 0.1737,
+          "bad_rate_declined": 0.8696,
+          "bad_rate_marginal": 0.7647,
+          "marginal_population": 34
+        },
+        {
+          "cutoff": 347,
+          "approval_rate": 0.9938,
+          "bad_rate_approved": 0.1727,
+          "bad_rate_declined": 0.8667,
+          "bad_rate_marginal": 0.7083,
+          "marginal_population": 48
+        },
+        {
+          "cutoff": 352,
+          "approval_rate": 0.9921,
+          "bad_rate_approved": 0.1716,
+          "bad_rate_declined": 0.8684,
+          "bad_rate_marginal": 0.6667,
+          "marginal_population": 54
+        },
+        {
+          "cutoff": 357,
+          "approval_rate": 0.9902,
+          "bad_rate_approved": 0.1704,
+          "bad_rate_declined": 0.8511,
+          "bad_rate_marginal": 0.5606,
+          "marginal_population": 66
+        },
+        {
+          "cutoff": 362,
+          "approval_rate": 0.9881,
+          "bad_rate_approved": 0.1695,
+          "bad_rate_declined": 0.807,
+          "bad_rate_marginal": 0.4889,
+          "marginal_population": 90
+        },
+        {
+          "cutoff": 367,
+          "approval_rate": 0.9838,
+          "bad_rate_approved": 0.1673,
+          "bad_rate_declined": 0.7692,
+          "bad_rate_marginal": 0.4158,
+          "marginal_population": 101
+        },
+        {
+          "cutoff": 372,
+          "approval_rate": 0.9808,
+          "bad_rate_approved": 0.1659,
+          "bad_rate_declined": 0.75,
+          "bad_rate_marginal": 0.3134,
+          "marginal_population": 134
+        },
+        {
+          "cutoff": 377,
+          "approval_rate": 0.9765,
+          "bad_rate_approved": 0.1649,
+          "bad_rate_declined": 0.6814,
+          "bad_rate_marginal": 0.3298,
+          "marginal_population": 191
+        },
+        {
+          "cutoff": 382,
+          "approval_rate": 0.9694,
+          "bad_rate_approved": 0.1633,
+          "bad_rate_declined": 0.6122,
+          "bad_rate_marginal": 0.3452,
+          "marginal_population": 252
+        },
+        {
+          "cutoff": 387,
+          "approval_rate": 0.9627,
+          "bad_rate_approved": 0.1619,
+          "bad_rate_declined": 0.5698,
+          "bad_rate_marginal": 0.3312,
+          "marginal_population": 311
+        },
+        {
+          "cutoff": 392,
+          "approval_rate": 0.9529,
+          "bad_rate_approved": 0.1616,
+          "bad_rate_declined": 0.4912,
+          "bad_rate_marginal": 0.3395,
+          "marginal_population": 380
+        },
+        {
+          "cutoff": 397,
+          "approval_rate": 0.9367,
+          "bad_rate_approved": 0.1579,
+          "bad_rate_declined": 0.4605,
+          "bad_rate_marginal": 0.3287,
+          "marginal_population": 429
+        },
+        {
+          "cutoff": 402,
+          "approval_rate": 0.9169,
+          "bad_rate_approved": 0.1529,
+          "bad_rate_declined": 0.4436,
+          "bad_rate_marginal": 0.3008,
+          "marginal_population": 472
+        },
+        {
+          "cutoff": 407,
+          "approval_rate": 0.8979,
+          "bad_rate_approved": 0.1497,
+          "bad_rate_declined": 0.4184,
+          "bad_rate_marginal": 0.2977,
+          "marginal_population": 524
+        },
+        {
+          "cutoff": 412,
+          "approval_rate": 0.8738,
+          "bad_rate_approved": 0.1454,
+          "bad_rate_declined": 0.396,
+          "bad_rate_marginal": 0.2727,
+          "marginal_population": 583
+        },
+        {
+          "cutoff": 417,
+          "approval_rate": 0.8473,
+          "bad_rate_approved": 0.1399,
+          "bad_rate_declined": 0.3834,
+          "bad_rate_marginal": 0.2504,
+          "marginal_population": 615
+        },
+        {
+          "cutoff": 422,
+          "approval_rate": 0.8185,
+          "bad_rate_approved": 0.1351,
+          "bad_rate_declined": 0.3662,
+          "bad_rate_marginal": 0.2302,
+          "marginal_population": 643
+        },
+        {
+          "cutoff": 427,
+          "approval_rate": 0.7887,
+          "bad_rate_approved": 0.1292,
+          "bad_rate_declined": 0.356,
+          "bad_rate_marginal": 0.207,
+          "marginal_population": 715
+        },
+        {
+          "cutoff": 432,
+          "approval_rate": 0.7523,
+          "bad_rate_approved": 0.1249,
+          "bad_rate_declined": 0.3356,
+          "bad_rate_marginal": 0.1889,
+          "marginal_population": 757
+        },
+        {
+          "cutoff": 437,
+          "approval_rate": 0.7192,
+          "bad_rate_approved": 0.1202,
+          "bad_rate_declined": 0.3227,
+          "bad_rate_marginal": 0.1902,
+          "marginal_population": 773
+        },
+        {
+          "cutoff": 442,
+          "approval_rate": 0.6846,
+          "bad_rate_approved": 0.1166,
+          "bad_rate_declined": 0.3085,
+          "bad_rate_marginal": 0.1889,
+          "marginal_population": 794
+        },
+        {
+          "cutoff": 447,
+          "approval_rate": 0.6398,
+          "bad_rate_approved": 0.111,
+          "bad_rate_declined": 0.2944,
+          "bad_rate_marginal": 0.1786,
+          "marginal_population": 767
+        },
+        {
+          "cutoff": 452,
+          "approval_rate": 0.5946,
+          "bad_rate_approved": 0.1079,
+          "bad_rate_declined": 0.2785,
+          "bad_rate_marginal": 0.1752,
+          "marginal_population": 742
+        },
+        {
+          "cutoff": 457,
+          "approval_rate": 0.5581,
+          "bad_rate_approved": 0.1,
+          "bad_rate_declined": 0.2744,
+          "bad_rate_marginal": 0.1486,
+          "marginal_population": 747
+        },
+        {
+          "cutoff": 462,
+          "approval_rate": 0.5192,
+          "bad_rate_approved": 0.0935,
+          "bad_rate_declined": 0.2673,
+          "bad_rate_marginal": 0.1221,
+          "marginal_population": 770
+        },
+        {
+          "cutoff": 467,
+          "approval_rate": 0.48,
+          "bad_rate_approved": 0.0885,
+          "bad_rate_declined": 0.2588,
+          "bad_rate_marginal": 0.1141,
+          "marginal_population": 754
+        },
+        {
+          "cutoff": 472,
+          "approval_rate": 0.44,
+          "bad_rate_approved": 0.0843,
+          "bad_rate_declined": 0.25,
+          "bad_rate_marginal": 0.106,
+          "marginal_population": 736
+        },
+        {
+          "cutoff": 477,
+          "approval_rate": 0.4025,
+          "bad_rate_approved": 0.0813,
+          "bad_rate_declined": 0.2416,
+          "bad_rate_marginal": 0.1064,
+          "marginal_population": 733
+        },
+        {
+          "cutoff": 482,
+          "approval_rate": 0.3588,
+          "bad_rate_approved": 0.0807,
+          "bad_rate_declined": 0.231,
+          "bad_rate_marginal": 0.1036,
+          "marginal_population": 676
+        },
+        {
+          "cutoff": 487,
+          "approval_rate": 0.3229,
+          "bad_rate_approved": 0.0761,
+          "bad_rate_declined": 0.2252,
+          "bad_rate_marginal": 0.0898,
+          "marginal_population": 668
+        },
+        {
+          "cutoff": 492,
+          "approval_rate": 0.2867,
+          "bad_rate_approved": 0.0727,
+          "bad_rate_declined": 0.219,
+          "bad_rate_marginal": 0.0874,
+          "marginal_population": 629
+        },
+        {
+          "cutoff": 497,
+          "approval_rate": 0.2498,
+          "bad_rate_approved": 0.0659,
+          "bad_rate_declined": 0.2141,
+          "bad_rate_marginal": 0.0822,
+          "marginal_population": 572
+        },
+        {
+          "cutoff": 502,
+          "approval_rate": 0.2179,
+          "bad_rate_approved": 0.066,
+          "bad_rate_declined": 0.208,
+          "bad_rate_marginal": 0.0824,
+          "marginal_population": 534
+        },
+        {
+          "cutoff": 507,
+          "approval_rate": 0.1837,
+          "bad_rate_approved": 0.0658,
+          "bad_rate_declined": 0.2021,
+          "bad_rate_marginal": 0.0791,
+          "marginal_population": 468
+        },
+        {
+          "cutoff": 512,
+          "approval_rate": 0.1556,
+          "bad_rate_approved": 0.0602,
+          "bad_rate_declined": 0.1986,
+          "bad_rate_marginal": 0.0625,
+          "marginal_population": 416
+        },
+        {
+          "cutoff": 517,
+          "approval_rate": 0.1306,
+          "bad_rate_approved": 0.051,
+          "bad_rate_declined": 0.196,
+          "bad_rate_marginal": 0.0546,
+          "marginal_population": 366
+        },
+        {
+          "cutoff": 522,
+          "approval_rate": 0.1067,
+          "bad_rate_approved": 0.0488,
+          "bad_rate_declined": 0.1924,
+          "bad_rate_marginal": 0.054,
+          "marginal_population": 315
+        },
+        {
+          "cutoff": 527,
+          "approval_rate": 0.0862,
+          "bad_rate_approved": 0.0507,
+          "bad_rate_declined": 0.189,
+          "bad_rate_marginal": 0.063,
+          "marginal_population": 254
+        },
+        {
+          "cutoff": 532,
+          "approval_rate": 0.069,
+          "bad_rate_approved": 0.0574,
+          "bad_rate_declined": 0.1859,
+          "bad_rate_marginal": 0.0751,
+          "marginal_population": 213
+        },
+        {
+          "cutoff": 537,
+          "approval_rate": 0.0544,
+          "bad_rate_approved": 0.046,
+          "bad_rate_declined": 0.1846,
+          "bad_rate_marginal": 0.052,
+          "marginal_population": 173
+        },
+        {
+          "cutoff": 542,
+          "approval_rate": 0.041,
+          "bad_rate_approved": 0.0406,
+          "bad_rate_declined": 0.1829,
+          "bad_rate_marginal": 0.0438,
+          "marginal_population": 137
+        },
+        {
+          "cutoff": 547,
+          "approval_rate": 0.0333,
+          "bad_rate_approved": 0.0312,
+          "bad_rate_declined": 0.1821,
+          "bad_rate_marginal": 0.0354,
+          "marginal_population": 113
+        },
+        {
+          "cutoff": 552,
+          "approval_rate": 0.0246,
+          "bad_rate_approved": 0.0254,
+          "bad_rate_declined": 0.1809,
+          "bad_rate_marginal": 0.0244,
+          "marginal_population": 82
+        },
+        {
+          "cutoff": 557,
+          "approval_rate": 0.0183,
+          "bad_rate_approved": 0.0341,
+          "bad_rate_declined": 0.1798,
+          "bad_rate_marginal": 0.0333,
+          "marginal_population": 60
+        },
+        {
+          "cutoff": 562,
+          "approval_rate": 0.0125,
+          "bad_rate_approved": 0.0333,
+          "bad_rate_declined": 0.1789,
+          "bad_rate_marginal": 0.0263,
+          "marginal_population": 38
+        },
+        {
+          "cutoff": 567,
+          "approval_rate": 0.0098,
+          "bad_rate_approved": 0.0213,
+          "bad_rate_declined": 0.1786,
+          "bad_rate_marginal": 0.0263,
+          "marginal_population": 38
+        },
+        {
+          "cutoff": 572,
+          "approval_rate": 0.0075,
+          "bad_rate_approved": 0.0278,
+          "bad_rate_declined": 0.1782,
+          "bad_rate_marginal": 0.0303,
+          "marginal_population": 33
+        },
+        {
+          "cutoff": 577,
+          "approval_rate": 0.0058,
+          "bad_rate_approved": 0.0357,
+          "bad_rate_declined": 0.1779,
+          "bad_rate_marginal": 0.0385,
+          "marginal_population": 26
+        },
+        {
+          "cutoff": 582,
+          "approval_rate": 0.0046,
+          "bad_rate_approved": 0.0455,
+          "bad_rate_declined": 0.1777,
+          "bad_rate_marginal": 0.0476,
+          "marginal_population": 21
+        },
+        {
+          "cutoff": 587,
+          "approval_rate": 0.0019,
+          "bad_rate_approved": 0.0,
+          "bad_rate_declined": 0.1774,
+          "bad_rate_marginal": 0.0,
+          "marginal_population": 9
+        },
+        {
+          "cutoff": 592,
+          "approval_rate": 0.0006,
+          "bad_rate_approved": 0.0,
+          "bad_rate_declined": 0.1772,
+          "bad_rate_marginal": 0.0,
+          "marginal_population": 3
+        },
+        {
+          "cutoff": 597,
+          "approval_rate": 0.0004,
+          "bad_rate_approved": 0.0,
+          "bad_rate_declined": 0.1772,
+          "bad_rate_marginal": 0.0,
+          "marginal_population": 2
+        },
+        {
+          "cutoff": 602,
+          "approval_rate": 0.0002,
+          "bad_rate_approved": 0.0,
+          "bad_rate_declined": 0.1771,
+          "bad_rate_marginal": 0.0,
+          "marginal_population": 1
+        }
+      ],
+      "recommended": {
+        "accept_cutoff": 447,
+        "refer_floor": 387,
+        "approval_rate": 0.6398,
+        "bad_rate_approved": 0.111,
+        "bad_rate_marginal": 0.1786,
+        "basis": "lowest cut-off with BOTH approved and marginal bad rate <= 18%; referral band = 1.5 x PDO (60 points)"
+      },
+      "configured": {
+        "accept_cutoff": 447,
+        "refer_floor": 387,
+        "approval_rate": 0.6398,
+        "bad_rate_approved": 0.111
+      },
+      "swap_set": {
+        "current_cutoff": 447,
+        "proposed_cutoff": 447,
+        "direction": "unchanged",
+        "applicants_affected": 0,
+        "share_of_population": 0.0,
+        "bad_rate_of_swap_set": null,
+        "approval_rate_current": 0.6398,
+        "approval_rate_proposed": 0.6398
+      },
+      "thin_file_note": {
+        "share_of_population": 0.229,
+        "bad_rate": 0.2502,
+        "segment_gini_out_of_time": 0.189459,
+        "policy_implication": "Thin-file discrimination is materially weaker than the bureau segment, so thin-file applicants should refer to manual underwriting rather than be auto-decided on score alone (policy rule R-THN-01)."
+      }
+    }
+  }
+}
