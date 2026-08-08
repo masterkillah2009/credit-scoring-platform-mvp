@@ -285,10 +285,14 @@ def main() -> None:
                   f"{recommended['approval_rate']:.1%}, approved bad rate "
                   f"{recommended['bad_rate_approved']:.1%}")
             swap = block["swap_set"]
-            print(f"  swap set   : {swap['direction']}, "
-                  f"{swap['applicants_affected']} applicants "
-                  f"({swap['share_of_population']:.1%}) move, "
-                  f"their bad rate {swap['bad_rate_of_swap_set']:.1%}")
+            if swap["bad_rate_of_swap_set"] is None:
+                print("  swap set   : none - recommended matches the "
+                      "configured cut-off, no applicants move")
+            else:
+                print(f"  swap set   : {swap['direction']}, "
+                      f"{swap['applicants_affected']} applicants "
+                      f"({swap['share_of_population']:.1%}) move, "
+                      f"their bad rate {swap['bad_rate_of_swap_set']:.1%}")
         thin = block["thin_file_note"]
         print(f"  thin file  : {thin['share_of_population']:.1%} of population, "
               f"bad rate {thin['bad_rate']:.1%}, segment Gini "
